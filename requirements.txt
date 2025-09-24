@@ -1,0 +1,28 @@
+# Use PyTorch CUDA 12.4 wheels as the primary index
+--index-url https://download.pytorch.org/whl/cu124
+--extra-index-url https://pypi.org/simple
+
+# PyTorch stack w/ GPU build pulled from the cu124 index
+torch
+torchvision
+torchaudio
+
+# Pull BasicSR straight from GitHub (XPixelGroup)
+# This is due to a change outlined in the issue below:
+# https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/13985#issuecomment-1813885266
+basicsr @ git+https://github.com/XPixelGroup/BasicSR.git
+
+# Other dependencies
+facexlib>=0.2.5
+gfpgan>=1.3.5
+image-slicer==3.1.0
+Flask>=3.0
+Werkzeug>=3.0
+numpy
+matplotlib
+moviepy
+opencv_python
+Pillow
+realesrgan
+tqdm
+python-dotenv

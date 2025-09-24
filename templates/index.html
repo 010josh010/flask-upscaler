@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Upload an Image to Upscale</h2>
+<p>Choose a PNG, JPG, JPEG, WEBP, or BMP image. The result will be previewed and downloadable on the next page.</p>
+
+<form id="upload-form" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="card">
+  <label for="image">
+    <i class="fa-regular fa-file-image"></i>
+    <strong>Select image</strong>
+  </label>
+  <input id="image" name="image" type="file" accept=".png,.jpg,.jpeg,.webp,.bmp" required>
+
+  <!-- Optional tiles input (kept commented)
+  <label for="slice_tiles">Approx tiles (optional):</label>
+  <input id="slice_tiles" name="slice_tiles" type="number" min="2" max="64" placeholder="4">
+  -->
+
+  <button id="upload-btn" type="submit">
+    <i class="fa-solid fa-wand-magic-sparkles"></i>
+    Upscale
+  </button>
+</form>
+
+<h3>Current Date & Time</h3>
+<p>{{ now.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+
+<script>
+  // Replace button content with a spinner while the request is in action
+  (function () {
+    const form = document.getElementById('upload-form');
+    const btn  = document.getElementById('upload-btn');
+    form.addEventListener('submit', function () {
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Upscaling…';
+    });
+  }());
+</script>
+{% endblock %}

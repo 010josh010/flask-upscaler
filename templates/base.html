@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title or "Flask Upscaler" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Internal stylesheet, svg, and favicon -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/svg+xml">
+  <link rel="alternate icon" href="{{ url_for('static', filename='img/favicon.ico') }}" sizes="any">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+  <!-- External font library  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">
+    <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="" class="site-logo">
+    <h1 class="site-title"><a href="{{ url_for('index') }}">Flask Upscaler</a></h1>
+  </div>
+  <nav class="site-nav">
+    <a href="{{ url_for('index') }}"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="{{ url_for('about') }}"><i class="fa-solid fa-circle-info"></i> About</a>
+  </nav>
+</header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for m in messages %}
+            <p>{{ m }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>© {{ now.year if now else "2025" }} • Flask Upscaler</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Upscaled Image</h2>
+<p>Right-click the image to save it, or use the Download button for a save prompt.</p>
+
+<div class="preview">
+  <img src="{{ preview_url }}" alt="Upscaled preview">
+</div>
+
+<div class="actions-row">
+  <a class="btn" href="{{ download_url }}">Download Upscaled Image</a>
+  <a class="muted-link" href="{{ url_for('index') }}"><i class="fa-solid fa-backward-step"></i> Upscale another image ?</a>
+</div>
+
+{% endblock %}

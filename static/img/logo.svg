@@ -1,0 +1,9 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg width="160" height="160" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rounded square frame -->
+  <rect x="8" y="8" width="112" height="112" rx="20" ry="20" fill="none" stroke="#6ea8fe" stroke-width="8"></rect>
+  <!-- NE arrow -->
+  <path d="M48 80 L88 40 M64 40 L88 40 L88 64" fill="none" stroke="#e8e8e8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- 4× label -->
+  <text x="16" y="112" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="28" font-weight="700" fill="#e8e8e8">4×</text>
+</svg>
