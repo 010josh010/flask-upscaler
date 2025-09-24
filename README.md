@@ -63,7 +63,7 @@ DEV_SECRET=<your_secret_here>
 ```
 
 ## Run the project
-Set your model path and dev secret in an `.env` file in the project root (see below), then run:
+Set your model path and dev secret in an `.env` file in the project root (see above), then run:
 ```bash
 flask run
 # open http://127.0.0.1:5000
