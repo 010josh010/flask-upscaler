@@ -4,11 +4,22 @@
 <p>Choose a PNG, JPG, JPEG, WEBP, or BMP image. The result will be previewed and downloadable on the next page.</p>
 
 <form id="upload-form" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="card">
-  <label for="image">
-    <i class="fa-regular fa-file-image"></i>
-    <strong>Select image</strong>
-  </label>
-  <input id="image" name="image" type="file" accept=".png,.jpg,.jpeg,.webp,.bmp" required>
+  <div id="drop-zone" class="drop-zone">
+    <input id="image" name="image" type="file" accept=".png,.jpg,.jpeg,.webp,.bmp" required>
+    <div class="drop-zone-content">
+      <i class="fa-solid fa-cloud-arrow-up"></i>
+      <p class="drop-zone-heading">Drag and Drop or Select Image file</p>
+      <button type="button" class="choose-file-btn">
+        <i class="fa-regular fa-folder-open"></i>
+        Choose File
+      </button>
+      <p class="drop-zone-formats">Supported: PNG, JPG, JPEG, WEBP, BMP</p>
+    </div>
+    <div id="file-preview" class="file-preview" style="display: none;">
+      <img id="preview-image" src="" alt="Preview">
+      <p id="file-name"></p>
+    </div>
+  </div>
 
   <!-- Optional tiles input (kept commented)
   <label for="slice_tiles">Approx tiles (optional):</label>
@@ -25,10 +36,94 @@
 <p>{{ now.strftime("%Y-%m-%d %H:%M:%S") }}</p>
 
 <script>
-  // Replace button content with a spinner while the request is in action
+  // Drag and drop + file preview functionality
   (function () {
     const form = document.getElementById('upload-form');
-    const btn  = document.getElementById('upload-btn');
+    const btn = document.getElementById('upload-btn');
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('image');
+    const filePreview = document.getElementById('file-preview');
+    const previewImage = document.getElementById('preview-image');
+    const fileName = document.getElementById('file-name');
+    const dropZoneContent = dropZone.querySelector('.drop-zone-content');
+
+    // Click to browse (both on drop zone and choose file button)
+    dropZone.addEventListener('click', function (e) {
+      if (e.target !== fileInput) {
+        fileInput.click();
+      }
+    });
+
+    const chooseFileBtn = dropZone.querySelector('.choose-file-btn');
+    if (chooseFileBtn) {
+      chooseFileBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        fileInput.click();
+      });
+    }
+
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
+      document.body.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // Highlight drop zone when dragging over it
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+      dropZone.classList.add('drop-zone-active');
+    }
+
+    function unhighlight() {
+      dropZone.classList.remove('drop-zone-active');
+    }
+
+    // Handle dropped files
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        handleFiles(files);
+      }
+    }
+
+    // Handle file selection via input
+    fileInput.addEventListener('change', function () {
+      if (this.files.length > 0) {
+        handleFiles(this.files);
+      }
+    });
+
+    function handleFiles(files) {
+      const file = files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImage.src = e.target.result;
+          fileName.textContent = file.name;
+          dropZoneContent.style.display = 'none';
+          filePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Replace button content with a spinner while the request is in action
     form.addEventListener('submit', function () {
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Upscaling…';

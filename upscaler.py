@@ -4,7 +4,7 @@ import argparse
 from math import ceil, sqrt
 from tempfile import TemporaryDirectory
 
-import cv2  
+import cv2
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy as np

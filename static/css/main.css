@@ -130,7 +130,6 @@ button[disabled] {
 
 label { display: block; margin-bottom: 0.5rem; }
 
-input[type="file"],
 input[type="number"] {
   display: block;
   background: var(--input-bg);
@@ -140,6 +139,104 @@ input[type="number"] {
   border-radius: 8px;
   width: 100%;
   margin-bottom: 0.75rem;
+}
+
+/* Drag and drop zone */
+.drop-zone {
+  position: relative;
+  background: var(--input-bg);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.drop-zone:hover {
+  border-color: var(--accent);
+  background: rgba(110, 168, 254, 0.05);
+}
+
+.drop-zone-active {
+  border-color: var(--accent);
+  background: rgba(110, 168, 254, 0.1);
+  border-style: solid;
+  transform: scale(1.01);
+}
+
+.drop-zone input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.drop-zone-content i {
+  font-size: 4rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.drop-zone-heading {
+  font-size: 1.25rem;
+  margin: 1rem 0 1.5rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.choose-file-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--btn-text);
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.choose-file-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.choose-file-btn i {
+  margin-right: 0.5rem;
+}
+
+.drop-zone-formats {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0.75rem 0 0;
+  opacity: 0.7;
+}
+
+.file-preview {
+  text-align: center;
+}
+
+.file-preview img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.file-preview p {
+  color: var(--text);
+  font-weight: 500;
+  word-break: break-all;
+  margin: 0;
 }
 
 button, .btn {

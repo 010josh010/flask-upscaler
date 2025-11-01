@@ -1,8 +1,10 @@
 .venv/
 __pycache__/
+.vscode
 *.pyc
 uploads/
 outputs/
 .env
 weights/
 *.pth
+CLAUDE.md
