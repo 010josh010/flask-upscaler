@@ -7,4 +7,5 @@ outputs/
 .env
 weights/
 *.pth
-CLAUDE.md
+*.md
+!README.md
